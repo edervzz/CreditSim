@@ -13,6 +13,8 @@ class CreateCreditSimulationRequest:
         self.credit_simulation.term = term
         self.credit_simulation.term_unit = term_unit
 
+        self.cashflow: list
+
 
 class CreateCreditSimulationResponse:
     """ response """
