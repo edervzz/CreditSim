@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "FastAPI (fastapi dev)",
+      "type": "python",
+      "request": "launch",
+      "module": "fastapi",
+      "args": ["dev", "src/backend/main.py"],
+      "cwd": "${workspaceFolder}/backend",
+      "justMyCode": true
+    }
+  ]
+}

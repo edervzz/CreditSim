@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 
-class CreditCalculation(BaseModel):
+class NewCreditSimulationModel(BaseModel):
     """ credit calculation info """
 
     credit_amount: float
