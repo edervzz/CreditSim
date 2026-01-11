@@ -3,12 +3,28 @@
   "configurations": [
     {
       "name": "FastAPI (fastapi dev)",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "module": "fastapi",
       "args": ["dev", "src/backend/main.py"],
       "cwd": "${workspaceFolder}/backend",
       "justMyCode": true
+    },
+    {
+      "name": "Run Vite Dev",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "${workspaceFolder}/frontend",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Fullstack",
+      "configurations": ["FastAPI (fastapi dev)", "Run Vite Dev"]
     }
   ]
 }
