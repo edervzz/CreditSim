@@ -1,6 +1,7 @@
 """ adapters """
 from sqlalchemy.orm import Session
-from backend.domain.ports import UnitOfWork, CreditSimulationRepository
+from backend.domain.ports import UnitOfWork
+from .credit_simulation_adapter import CreditSimulationAdapter
 
 
 class Adapter(UnitOfWork):
@@ -9,4 +10,10 @@ class Adapter(UnitOfWork):
     def __init__(self, session: Session):
         super().__init__(session)
 
-        self.simulate = CreditSimulationRepository(self.session)
+        self.credit_simulation = CreditSimulationAdapter(self.session)
+
+    def commit(self):
+        self.session.commit()
+
+    def rollback(self):
+        self.session.rollback()

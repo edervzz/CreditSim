@@ -38,5 +38,6 @@ def _(
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,
-        content={"cashflow": result.cashflow}
+        headers={"item": str(result.id)},
+        content={"installments": result.installments}
     )

@@ -17,7 +17,7 @@ export function CashflowTable({ cashflow }: Props) {
       </thead>
       <tbody>
         {cashflow?.map((x) => (
-          <tr id={x.month.toString()}>
+          <tr key={x.month.toString()}>
             <td>{x.month}</td>
             <td>{x.interest}</td>
             <td>{x.principal}</td>

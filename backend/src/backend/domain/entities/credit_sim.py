@@ -16,3 +16,5 @@ class CreditSimulation(Base):
     term: Mapped[int] = mapped_column(nullable=False)
 
     term_unit: Mapped[str] = mapped_column(nullable=False)
+
+    amortization_schedule: Mapped[str] = mapped_column(nullable=True)

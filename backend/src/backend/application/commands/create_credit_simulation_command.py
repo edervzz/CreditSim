@@ -21,8 +21,8 @@ class CreateCreditSimulationCommand:
         validator.validate_and_throw(request)
         self.log.info("request validated")
         # 2. business checks
-        biz_validator = CreateCreditSimulationBizValidator()
+        biz_validator = CreateCreditSimulationBizValidator(self.uow)
         biz_validator.validate_and_throw(request)
         self.log.info("business rules validated")
 
-        return CreateCreditSimulationResponse(request.cashflow)
+        return CreateCreditSimulationResponse(request.credit_simulation_id, request.installments)

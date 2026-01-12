@@ -1,1 +1,1 @@
-export { CreditSimulation } from "./CreditSimulation"
+export { CreditSimulationPage as CreditSimulation } from "./CreditSimulationPage"

@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.webapi.endpoints import register_routers, register_exception_handlers
 
-logging.basicConfig(level=logging.WARN,
+logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 
 app = FastAPI()

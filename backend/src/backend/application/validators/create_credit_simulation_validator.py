@@ -1,6 +1,9 @@
 """ validator """
+import json
 from backend.tools import Validator
 from backend.application.messages import CreateCreditSimulationRequest
+from backend.domain.entities import CreditSimulation
+from backend.domain.ports import UnitOfWork
 
 
 class CreateCreditSimulationValidator(Validator):
@@ -20,6 +23,10 @@ class CreateCreditSimulationValidator(Validator):
 
 class CreateCreditSimulationBizValidator(Validator):
     """ business validator """
+
+    def __init__(self, uow: UnitOfWork):
+        super().__init__()
+        self.uow = uow
 
     def __validate__(self, request: CreateCreditSimulationRequest):
         amnt = request.credit_simulation.credit_amount
@@ -44,4 +51,17 @@ class CreateCreditSimulationBizValidator(Validator):
                 "outstanding": round(max(outstanding, 0), 2)
             })
 
-        request.cashflow = table
+        request.installments = table
+
+        entity = CreditSimulation()
+        entity.credit_amount = request.credit_simulation.credit_amount
+        entity.annual_rate = request.credit_simulation.annual_rate
+        entity.term = request.credit_simulation.term
+        entity.term_unit = request.credit_simulation.term_unit
+        entity.amortization_schedule = json.dumps(
+            request.installments)
+
+        self.uow.credit_simulation.create(entity)
+        self.uow.commit()
+
+        request.credit_simulation_id = entity.id

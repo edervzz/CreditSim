@@ -1,6 +1,6 @@
 """ migrations """
 
-from sqlalchemy import Column, Float, Integer, String
+from sqlalchemy import Column, Float, Integer, String, Text
 from sqlalchemy import MetaData, Table
 from sqlalchemy.orm import Session
 
@@ -34,6 +34,10 @@ def base(session: Session) -> str:
             "term_unit", String(1),
             nullable=False,
             comment="Term unit"),
+        Column(
+            "amortization_schedule", Text,
+            nullable=False,
+            comment="Amortization Schedule"),
         comment="Credit simulations."
     )
 

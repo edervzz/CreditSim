@@ -6,7 +6,7 @@ export type CreditSimulationRequestDto = {
 
 
 export type CreditSimulationResponseDto = {
-    cashflow: [PaymentSimulationDto]
+    installments: [PaymentSimulationDto]
 }
 
 export type PaymentSimulationDto = {

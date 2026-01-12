@@ -1,23 +1,28 @@
-import { useRef } from "react";
-
 interface Props {
-  onSubmit?: (amount: number, rate: number, months: number) => void;
+  amount: string;
+  rate: string;
+  months: string;
+  onChangeAmount: (amount: number) => void;
+  onChangeRate: (rate: number) => void;
+  onChangeMonths: (months: number) => void;
+  onSubmit?: () => void;
 }
 
-export function SimulationForm({ onSubmit }: Props) {
-  const amountRef = useRef<HTMLInputElement>(null);
-  const rateRef = useRef<HTMLInputElement>(null);
-  const monthsRef = useRef<HTMLInputElement>(null);
+export function SimulationForm({
+  amount,
+  rate,
+  months,
+  onChangeAmount,
+  onChangeRate,
+  onChangeMonths,
+  onSubmit,
+}: Props) {
   return (
     <div className="container" style={{ backgroundColor: "" }}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit?.(
-            Number(amountRef.current?.value) || 0,
-            Number(rateRef.current?.value) || 0,
-            Number(monthsRef.current?.value) || 0
-          );
+          onSubmit?.();
         }}
       >
         <div className="row align-items-center">
@@ -28,7 +33,8 @@ export function SimulationForm({ onSubmit }: Props) {
               type="number"
               min={0}
               step={0.01}
-              ref={amountRef}
+              value={amount}
+              onChange={(e) => onChangeAmount(Number(e.target.value))}
               aria-label="Credit Amount"
             />
           </div>
@@ -41,7 +47,8 @@ export function SimulationForm({ onSubmit }: Props) {
               type="number"
               min={0}
               step={0.01}
-              ref={rateRef}
+              value={rate}
+              onChange={(e) => onChangeRate(Number(e.target.value))}
               aria-label="Annual Interest Rate"
             />
           </div>
@@ -53,7 +60,8 @@ export function SimulationForm({ onSubmit }: Props) {
               className="form-control"
               type="number"
               min={0}
-              ref={monthsRef}
+              value={months}
+              onChange={(e) => onChangeMonths(Number(e.target.value))}
               aria-label="Term in months unit"
             />
           </div>
