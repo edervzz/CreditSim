@@ -18,7 +18,10 @@
       "runtimeArgs": ["run", "dev"],
       "cwd": "${workspaceFolder}/frontend",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "VITE_API_URL": "https://kbrh3u5p48.us-east-2.awsapprunner.com/"
+      }
     }
   ],
   "compounds": [
