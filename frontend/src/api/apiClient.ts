@@ -3,7 +3,7 @@ import type { MessagesResponseDto } from "./MessagesResponse.dto";
 
 const basepath = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
-export type ResultPost<T=any>= {
+export type ResultPost<T>= {
     ok: boolean;
     resultData?: T;
     messages?: MessagesResponseDto;
