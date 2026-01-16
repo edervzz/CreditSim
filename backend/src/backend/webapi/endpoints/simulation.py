@@ -1,9 +1,9 @@
 """ endpoints """
 import logging
-from fastapi import Depends, APIRouter, status, BackgroundTasks
-from fastapi.responses import JSONResponse
+from typing import List
+from fastapi import Depends, APIRouter,  BackgroundTasks, Response
 from sqlalchemy.orm import Session
-from backend.webapi.models import NewCreditSimulationModel
+from backend.webapi.models import NewCreditSimulationModel, InstallmentsModel, InstallmentModel
 from backend.tools import get_db
 from backend.infrastructure.integrations import risk_audit_mock
 from backend.application.messages import CreateCreditSimulationRequest
@@ -13,11 +13,12 @@ from backend.infrastructure.adapters import Adapter
 router = APIRouter()
 
 
-@router.post("/simulate")
+@router.post("/simulate", response_model=InstallmentsModel)
 def _(
     credit: NewCreditSimulationModel,
     background_tasks: BackgroundTasks,
-    db: Session = Depends(get_db)
+    response: Response,
+    db: Session = Depends(get_db),
 ):
 
     command = CreateCreditSimulationRequest(
@@ -36,8 +37,19 @@ def _(
         result.id,
     )
 
-    return JSONResponse(
-        status_code=status.HTTP_200_OK,
-        headers={"item": str(result.id)},
-        content={"installments": result.installments}
-    )
+    instllmnts: List[InstallmentModel] = []
+    for row in result.installments:
+        i = InstallmentModel(
+            month=row["month"],
+            quota=row["quota"],
+            interest=row["interest"],
+            principal=row["principal"],
+            outstanding=row["outstanding"]
+        )
+        instllmnts.append(i)
+
+    data = InstallmentsModel(installments=instllmnts)
+
+    response.headers["item"] = str(result.id)
+
+    return data

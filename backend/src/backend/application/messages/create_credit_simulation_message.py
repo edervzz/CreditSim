@@ -20,6 +20,9 @@ class CreateCreditSimulationRequest:
 class CreateCreditSimulationResponse:
     """ response """
 
-    def __init__(self, _id: int,  installments):
+    def __init__(self, _id: int, annual_rate: float, credit_amount: float, term: int, installments):
         self.id = _id
+        self.annual_rate = annual_rate
+        self.credit_amount = credit_amount
+        self.term = term
         self.installments = installments

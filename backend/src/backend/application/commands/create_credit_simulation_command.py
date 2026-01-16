@@ -25,4 +25,9 @@ class CreateCreditSimulationCommand:
         biz_validator.validate_and_throw(request)
         self.log.info("business rules validated")
 
-        return CreateCreditSimulationResponse(request.credit_simulation_id, request.installments)
+        return CreateCreditSimulationResponse(
+            request.credit_simulation_id,
+            request.credit_simulation.annual_rate,
+            request.credit_simulation.credit_amount,
+            request.credit_simulation.term,
+            request.installments)

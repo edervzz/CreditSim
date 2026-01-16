@@ -1,3 +1,5 @@
 """ validators """
 from .create_credit_simulation_validator import CreateCreditSimulationValidator
 from .create_credit_simulation_validator import CreateCreditSimulationBizValidator
+from .read_credit_simulation_validator import ReadCreditSimulationValidator
+from .read_credit_simulation_validator import ReadCreditSimulationBizValidator

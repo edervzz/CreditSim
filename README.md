@@ -29,12 +29,12 @@ npm install
 
 npm run build
 
-aws s3 website s3://creditsim-frontend --index-document index.html --error-document index.html
+aws s3 sync dist s3://creditsim-frontend --delete
+
+######################################################################################
+
+aws s3 cp dist s3://creditsim-frontend/ --recursive
 
 crear bucket: aws s3 mb s3://creditsim-frontend --region us-east-2
 
 aws s3 website s3://creditsim-frontend --index-document index.html --error-document index.html
-
-aws s3 sync dist s3://creditsim-frontend
-
-aws s3 cp dist s3://creditsim-frontend/ --recursive
